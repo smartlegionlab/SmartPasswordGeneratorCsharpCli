@@ -1,4 +1,4 @@
-# Smart Password Generator CLI (C#) <sup>v1.0.0</sup>
+# Smart Password Generator CLI (C#) <sup>v1.0.1</sup>
 
 **Terminal-based smart password generator with deterministic password generation. Generate passwords from secret phrases - same secret always produces the same password, no storage required. All from your command line.**
 
@@ -113,7 +113,7 @@ SmartPasswordGeneratorCsharpCli-win-x64.exe
 ```
 ================================================================================
                        SMART PASSWORD GENERATOR (C#) CLI
-                                 Version: 1.0.0
+                                 Version: 1.0.1
 ================================================================================
 
  MAIN MENU
