@@ -18,6 +18,12 @@ class Program
 
     static void CommandMode(string[] args)
     {
+        if (args == null || args.Length == 0 || string.IsNullOrEmpty(args[0]))
+        {
+            Console.WriteLine("ERROR: No command specified");
+            return;
+        }
+
         switch (args[0].ToLower())
         {
             case "smart":
@@ -26,7 +32,7 @@ class Program
                     Console.WriteLine("ERROR: Usage: passgen smart <secret> <length>");
                     return;
                 }
-                string secret = args[1];
+                string secret = args[1] ?? string.Empty;
                 if (secret.Length < 12)
                 {
                     Console.WriteLine("ERROR: Secret must be at least 12 characters");
@@ -110,14 +116,15 @@ class Program
                     Console.WriteLine("ERROR: Usage: passgen public <secret>");
                     return;
                 }
-                if (args[1].Length < 12)
+                string pubSecret = args[1] ?? string.Empty;
+                if (pubSecret.Length < 12)
                 {
                     Console.WriteLine("ERROR: Secret must be at least 12 characters");
                     return;
                 }
                 try
                 {
-                    Console.WriteLine(SmartPasswordGenerator.GeneratePublicKey(args[1]));
+                    Console.WriteLine(SmartPasswordGenerator.GeneratePublicKey(pubSecret));
                 }
                 catch (Exception ex)
                 {
@@ -131,12 +138,19 @@ class Program
                     Console.WriteLine("ERROR: Usage: passgen verify <secret> <public_key>");
                     return;
                 }
-                if (args[1].Length < 12)
+                string verifySecret = args[1] ?? string.Empty;
+                string publicKey = args[2] ?? string.Empty;
+                if (verifySecret.Length < 12)
                 {
                     Console.WriteLine("ERROR: Secret must be at least 12 characters");
                     return;
                 }
-                bool isValid = SmartPasswordGenerator.VerifySecret(args[1], args[2]);
+                if (string.IsNullOrWhiteSpace(publicKey))
+                {
+                    Console.WriteLine("ERROR: Public key cannot be empty");
+                    return;
+                }
+                bool isValid = SmartPasswordGenerator.VerifySecret(verifySecret, publicKey);
                 Console.WriteLine(isValid ? "VALID" : "INVALID");
                 break;
 
@@ -325,7 +339,15 @@ class Program
         }
 
         Console.Write(" Enter password length (12-1000): ");
-        if (!int.TryParse(Console.ReadLine(), out int length))
+        string? lengthInput = Console.ReadLine();
+        if (string.IsNullOrWhiteSpace(lengthInput))
+        {
+            Console.WriteLine("\n ERROR: Invalid length! Press any key...");
+            Console.ReadKey();
+            return;
+        }
+
+        if (!int.TryParse(lengthInput, out int length))
         {
             Console.WriteLine("\n ERROR: Invalid length! Press any key...");
             Console.ReadKey();
@@ -361,8 +383,16 @@ class Program
         Console.WriteLine(" GENERATE STRONG RANDOM PASSWORD");
         Console.WriteLine(" (Password length must be between 12 and 1000)");
         Console.Write(" Enter password length: ");
+        string? lengthInput = Console.ReadLine();
 
-        if (!int.TryParse(Console.ReadLine(), out int length))
+        if (string.IsNullOrWhiteSpace(lengthInput))
+        {
+            Console.WriteLine("\n ERROR: Invalid length! Press any key...");
+            Console.ReadKey();
+            return;
+        }
+
+        if (!int.TryParse(lengthInput, out int length))
         {
             Console.WriteLine("\n ERROR: Invalid length! Press any key...");
             Console.ReadKey();
@@ -398,8 +428,16 @@ class Program
         Console.WriteLine(" GENERATE AUTH CODE");
         Console.WriteLine(" (Code length must be between 4 and 20)");
         Console.Write(" Enter code length: ");
+        string? lengthInput = Console.ReadLine();
 
-        if (!int.TryParse(Console.ReadLine(), out int length))
+        if (string.IsNullOrWhiteSpace(lengthInput))
+        {
+            Console.WriteLine("\n ERROR: Invalid length! Press any key...");
+            Console.ReadKey();
+            return;
+        }
+
+        if (!int.TryParse(lengthInput, out int length))
         {
             Console.WriteLine("\n ERROR: Invalid length! Press any key...");
             Console.ReadKey();
@@ -476,7 +514,7 @@ class Program
         }
 
         Console.Write(" Enter public key: ");
-        string publicKey = Console.ReadLine();
+        string? publicKey = Console.ReadLine();
 
         if (string.IsNullOrWhiteSpace(publicKey))
         {
