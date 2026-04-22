@@ -238,7 +238,7 @@ class Program
         int width = Console.WindowWidth;
         Console.WriteLine(new string('=', width));
         CenterText("SMART PASSWORD GENERATOR (C#) CLI");
-        CenterText("Version v1.0.1");
+        CenterText("Version v1.0.2");
         Console.WriteLine(new string('=', width));
         Console.WriteLine();
         Console.WriteLine("DESCRIPTION:");
@@ -287,7 +287,7 @@ class Program
         int width = Console.WindowWidth;
         Console.WriteLine(new string('=', width));
         CenterText("SMART PASSWORD GENERATOR (C#) CLI");
-        CenterText($"Version: v1.0.1");
+        CenterText($"Version: v1.0.2");
         Console.WriteLine(new string('=', width));
         Console.WriteLine();
     }
@@ -310,7 +310,7 @@ class Program
         int width = Console.WindowWidth;
         Console.WriteLine(new string('=', width));
         CenterText("SMART PASSWORD GENERATOR (C#) CLI");
-        CenterText($"Version: v1.0.1");
+        CenterText($"Version: v1.0.2");
         Console.WriteLine(new string('=', width));
         Console.WriteLine();
         CenterText("https://github.com/smartlegionlab/SmartPasswordGeneratorCsharpCli");

@@ -1,4 +1,4 @@
-# Smart Password Generator CLI (C#) <sup>v1.0.1</sup>
+# Smart Password Generator CLI (C#) <sup>v1.0.2</sup>
 
 **Terminal-based smart password generator with deterministic password generation. Generate passwords from secret phrases - same secret always produces the same password, no storage required. All from your command line.**
 
@@ -113,7 +113,7 @@ SmartPasswordGeneratorCsharpCli-win-x64.exe
 ```
 ================================================================================
                        SMART PASSWORD GENERATOR (C#) CLI
-                                 Version: 1.0.1
+                                 Version: 1.0.2
 ================================================================================
 
  MAIN MENU
@@ -227,7 +227,7 @@ dotnet build SmartPasswordGeneratorCsharpCli/
 dotnet publish -c Release -o C:\publish-win -p:AssemblyName=SmartPasswordGeneratorCsharpCli-win-x64 -r win-x64 --self-contained true
 
 # Linux
-dotnet publish -c Release -o ~/.publish-linux/SmartPasswordGeneratorCsharpCli -p:AssemblyName=SmartPasswordGeneratorCsharpCli-linux-x64 -r linux-x64 --self-contained true
+dotnet publish SmartPasswordGeneratorCsharpCli.csproj -c Release -o ~/.publish-linux/SmartPasswordGeneratorCsharpCli -p:AssemblyName=SmartPasswordGeneratorCsharpCli-linux-x64 -r linux-x64 --self-contained true
 ```
 
 ## Ecosystem
