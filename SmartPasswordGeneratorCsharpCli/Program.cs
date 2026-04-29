@@ -1,4 +1,4 @@
-using SmartLegionLab.SmartPasswordLib;
+using SmartLegionLab.SmartPassLib;
 
 namespace SmartPasswordGeneratorCsharpCli;
 
@@ -29,7 +29,7 @@ class Program
             case "smart":
                 if (args.Length < 3)
                 {
-                    Console.WriteLine("ERROR: Usage: passgen smart <secret> <length>");
+                    Console.WriteLine("ERROR: Usage: SmartPasswordGeneratorCsharpCli-linux-x64 smart <secret> <length>");
                     return;
                 }
                 string secret = args[1] ?? string.Empty;
@@ -61,7 +61,7 @@ class Program
             case "strong":
                 if (args.Length < 2)
                 {
-                    Console.WriteLine("ERROR: Usage: passgen strong <length>");
+                    Console.WriteLine("ERROR: Usage: SmartPasswordGeneratorCsharpCli-linux-x64 strong <length>");
                     return;
                 }
                 if (!int.TryParse(args[1], out int strongLength))
@@ -87,7 +87,7 @@ class Program
             case "code":
                 if (args.Length < 2)
                 {
-                    Console.WriteLine("ERROR: Usage: passgen code <length>");
+                    Console.WriteLine("ERROR: Usage: SmartPasswordGeneratorCsharpCli-linux-x64 code <length>");
                     return;
                 }
                 if (!int.TryParse(args[1], out int codeLength))
@@ -113,7 +113,7 @@ class Program
             case "public":
                 if (args.Length < 2)
                 {
-                    Console.WriteLine("ERROR: Usage: passgen public <secret>");
+                    Console.WriteLine("ERROR: Usage: SmartPasswordGeneratorCsharpCli-linux-x64 public <secret>");
                     return;
                 }
                 string pubSecret = args[1] ?? string.Empty;
@@ -135,7 +135,7 @@ class Program
             case "verify":
                 if (args.Length < 3)
                 {
-                    Console.WriteLine("ERROR: Usage: passgen verify <secret> <public_key>");
+                    Console.WriteLine("ERROR: Usage: SmartPasswordGeneratorCsharpCli-linux-x64 verify <secret> <public_key>");
                     return;
                 }
                 string verifySecret = args[1] ?? string.Empty;
@@ -238,13 +238,22 @@ class Program
         int width = Console.WindowWidth;
         Console.WriteLine(new string('=', width));
         CenterText("SMART PASSWORD GENERATOR (C#) CLI");
-        CenterText("Version v1.0.2");
+        CenterText("Version v1.0.3");
         Console.WriteLine(new string('=', width));
         Console.WriteLine();
+
+        Console.WriteLine("DECENTRALIZED BY DESIGN:");
+        Console.WriteLine("• No cloud, no database, no trust required");
+        Console.WriteLine("• Your secrets never leave your device");
+        Console.WriteLine("• There is no \"forgot password\" button — you are in complete control");
+        Console.WriteLine("• Works offline — no internet connection needed");
+        Console.WriteLine();
+
         Console.WriteLine("DESCRIPTION:");
-        Console.WriteLine("Deterministic password generator using SmartPasswordLib");
+        Console.WriteLine("Deterministic password generator using SmartPassLib");
         Console.WriteLine("Same secret + same length = same password across all platforms");
         Console.WriteLine();
+
         Console.WriteLine("HOW IT WORKS:");
         Console.WriteLine("1. Smart password: deterministic from secret phrase (30 iterations SHA-256)");
         Console.WriteLine("2. Strong password: cryptographically secure random");
@@ -252,29 +261,49 @@ class Program
         Console.WriteLine("4. Public key: derived from secret (60 iterations SHA-256)");
         Console.WriteLine("5. Verify: check if secret matches public key");
         Console.WriteLine();
-        Console.WriteLine("COMMANDS:");
-        Console.WriteLine("  passgen smart <secret> <length>");
-        Console.WriteLine("  passgen strong <length>");
-        Console.WriteLine("  passgen code <length>");
-        Console.WriteLine("  passgen public <secret>");
-        Console.WriteLine("  passgen verify <secret> <public_key>");
-        Console.WriteLine("  passgen help");
+
+        Console.WriteLine("SECURITY NOTES:");
+        Console.WriteLine("• Passwords are NEVER stored anywhere");
+        Console.WriteLine("• Secret phrase never leaves your device");
+        Console.WriteLine("• Lost secret phrase = permanently lost passwords");
+        Console.WriteLine("• Secret phrase must be at least 12 characters");
+        Console.WriteLine("⚠ Never use the description as your secret phrase!");
         Console.WriteLine();
+
+        Console.WriteLine("CROSS-PLATFORM COMPATIBILITY:");
+        Console.WriteLine("Same secret + same length = identical passwords on:");
+        Console.WriteLine("• Python (Desktop, CLI)");
+        Console.WriteLine("• C# (Desktop, CLI)");
+        Console.WriteLine("• Web, Android, and all smartpasslib implementations");
+        Console.WriteLine();
+
+        Console.WriteLine("COMMANDS:");
+        Console.WriteLine("  SmartPasswordGeneratorCsharpCli-linux-x64 smart <secret> <length>");
+        Console.WriteLine("  SmartPasswordGeneratorCsharpCli-linux-x64 strong <length>");
+        Console.WriteLine("  SmartPasswordGeneratorCsharpCli-linux-x64 code <length>");
+        Console.WriteLine("  SmartPasswordGeneratorCsharpCli-linux-x64 public <secret>");
+        Console.WriteLine("  SmartPasswordGeneratorCsharpCli-linux-x64 verify <secret> <public_key>");
+        Console.WriteLine("  SmartPasswordGeneratorCsharpCli-linux-x64 help");
+        Console.WriteLine();
+
         Console.WriteLine("REQUIREMENTS:");
         Console.WriteLine("- Secret phrase: minimum 12 characters");
         Console.WriteLine("- Smart/Strong password length: 12-1000 characters");
         Console.WriteLine("- Auth code length: 4-20 characters");
         Console.WriteLine();
+
         Console.WriteLine("EXAMPLES:");
-        Console.WriteLine("  passgen smart \"MySecretPhrase123\" 16");
-        Console.WriteLine("  passgen strong 20");
-        Console.WriteLine("  passgen code 8");
-        Console.WriteLine("  passgen public \"MySecretPhrase123\"");
-        Console.WriteLine("  passgen verify \"MySecretPhrase123\" a1b2c3d4...");
+        Console.WriteLine("  SmartPasswordGeneratorCsharpCli-linux-x64 smart \"MyStrongSecretPhrase2026!\" 16");
+        Console.WriteLine("  SmartPasswordGeneratorCsharpCli-linux-x64 strong 20");
+        Console.WriteLine("  SmartPasswordGeneratorCsharpCli-linux-x64 code 8");
+        Console.WriteLine("  SmartPasswordGeneratorCsharpCli-linux-x64 public \"MyStrongSecretPhrase2026!\"");
+        Console.WriteLine("  SmartPasswordGeneratorCsharpCli-linux-x64 verify \"MyStrongSecretPhrase2026!\" a1b2c3d4...");
         Console.WriteLine();
+
         Console.WriteLine("LINKS:");
         Console.WriteLine("Repo: https://github.com/smartlegionlab/SmartPasswordGeneratorCsharpCli");
         Console.WriteLine("Core Lib: https://github.com/smartlegionlab/smartpasslib-csharp");
+        Console.WriteLine("Migration Guide: https://github.com/smartlegionlab/SmartPasswordGeneratorCsharpCli/blob/master/MIGRATION.md");
         Console.WriteLine("License: BSD 3-Clause");
         Console.WriteLine("Author: Alexander Suvorov");
         Console.WriteLine();
@@ -287,7 +316,7 @@ class Program
         int width = Console.WindowWidth;
         Console.WriteLine(new string('=', width));
         CenterText("SMART PASSWORD GENERATOR (C#) CLI");
-        CenterText($"Version: v1.0.2");
+        CenterText($"Version: v1.0.3");
         Console.WriteLine(new string('=', width));
         Console.WriteLine();
     }
@@ -310,7 +339,7 @@ class Program
         int width = Console.WindowWidth;
         Console.WriteLine(new string('=', width));
         CenterText("SMART PASSWORD GENERATOR (C#) CLI");
-        CenterText($"Version: v1.0.2");
+        CenterText($"Version: v1.0.3");
         Console.WriteLine(new string('=', width));
         Console.WriteLine();
         CenterText("https://github.com/smartlegionlab/SmartPasswordGeneratorCsharpCli");
