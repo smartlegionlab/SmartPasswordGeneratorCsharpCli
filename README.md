@@ -1,4 +1,4 @@
-# Smart Password Generator CLI (C#) <sup>v1.0.3</sup>
+# Smart Password Generator CLI (C#) <sup>v4.0.0</sup>
 
 ---
 
@@ -28,6 +28,16 @@ Smart Password Generator stores nothing. Your secrets never leave your device. P
 
 ---
 
+## 🔄 Breaking Change (v4.0.0)
+
+> **⚠️ This release uses [smartpasslib-csharp](https://github.com/smartlegionlab/smartpasslib-csharp) v4.0.0, which is NOT backward compatible with v1.0.3**
+
+Smart passwords created with older versions **cannot be regenerated** with v4.0.0.
+
+📖 **Full migration instructions** → see [MIGRATION.md](https://github.com/smartlegionlab/SmartPasswordGeneratorCsharpCli/blob/master/MIGRATION.md)
+
+---
+
 ## Core Principles
 
 - **Zero-Storage Security**: No passwords or secret phrases are ever stored or transmitted
@@ -35,16 +45,17 @@ Smart Password Generator stores nothing. Your secrets never leave your device. P
 - **Deterministic Generation**: Same secret + same length = same password, every time
 - **Memory-Based Security**: Your brain is the only password database
 - **Cross-Platform**: Windows, Linux support
-- **Multi-Mode Generation**: Smart passwords, strong random, and auth codes
+- **Multi-Mode Generation**: Smart passwords, strong random, auth codes, public keys, verification
 
 ## Key Features
 
 - **Decentralized & Serverless**: No central database, no cloud lock-in, complete user sovereignty
 - **Smart Password Generation**: Deterministic from secret phrase
+- **Dynamic Iteration Counts**: 15-30 for private key, 45-60 for public key (deterministic per secret)
 - **Public Key Generation**: Generate verification key from secret
 - **Secret Verification**: Verify secret against public key
 - **Strong Random Passwords**: Cryptographically secure random passwords
-- **Authentication Codes**: Short codes for 2FA/MFA (4-20 chars)
+- **Authentication Codes**: Short codes for 2FA/MFA (4-100 chars)
 - **Interactive Mode**: Menu-driven interface for easy use
 - **Command-Line Mode**: Scriptable generation for automation
 - **Hidden Input**: Secret phrase entry with asterisks masking
@@ -71,14 +82,22 @@ Smart Password Generator stores nothing. Your secrets never leave your device. P
 
 Powered by **[smartpasslib-csharp](https://github.com/smartlegionlab/smartpasslib-csharp)** — C# implementation of deterministic password generation.
 
-**Key derivation (same as Python/JS/Kotlin/Go/C# versions):**
+**Key derivation (same as Python/JS/Kotlin/Go versions v4.0.0):**
 
-| Key Type    | Iterations | Purpose                                               |
-|-------------|------------|-------------------------------------------------------|
-| Private Key | 30         | Password generation (never stored, never transmitted) |
-| Public Key  | 60         | Verification (stored locally)                         |
+| Key Type    | Iterations              | Purpose                                               |
+|-------------|-------------------------|-------------------------------------------------------|
+| Private Key | 15-30 (dynamic)         | Password generation (never stored, never transmitted) |
+| Public Key  | 45-60 (dynamic)         | Verification (stored locally)                         |
 
-**Character Set:** `abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$&*-_`
+**Character Set (Google-compatible):**
+```
+!@#$%^&*()_+-=[]{};:,.<>?/ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz
+```
+
+**Validation Rules:**
+- Secret phrase: minimum 12 characters
+- Password length: 12-100 characters
+- Code length: 4-100 characters
 
 **Decentralized Architecture**:
 - No central authority required
@@ -128,7 +147,6 @@ SmartPasswordGeneratorCsharpCli-win-x64.exe
 ```
 ================================================================================
                        SMART PASSWORD GENERATOR (C#) CLI
-                                 Version: 1.0.3
 ================================================================================
 
  MAIN MENU
@@ -167,23 +185,27 @@ SmartPasswordGeneratorCsharpCli help
 
 ## Commands Reference
 
-| Command                        | Description                       |
-|--------------------------------|-----------------------------------|
-| `smart <secret> <length>`      | Generate deterministic password   |
-| `strong <length>`              | Generate cryptographically random |
-| `code <length>`                | Generate auth code (4-20 chars)   |
-| `public <secret>`              | Generate public key from secret   |
-| `verify <secret> <public_key>` | Verify secret against public key  |
-| `help`                         | Show help information             |
+| Command                        | Description                                        |
+|--------------------------------|----------------------------------------------------|
+| `smart <secret> <length>`      | Generate deterministic password (12-100 chars)     |
+| `strong <length>`              | Generate cryptographically random (12-100 chars)   |
+| `code <length>`                | Generate auth code (4-100 chars)                   |
+| `public <secret>`              | Generate public key from secret                    |
+| `verify <secret> <public_key>` | Verify secret against public key                   |
+| `help`                         | Show help information                              |
 
 ## Security Requirements
 
 ### Secret Phrase
 - **Minimum 12 characters** (enforced)
 - Case-sensitive
-- Use mix of: uppercase, lowercase, numbers, symbols, emoji, or Cyrillic
+- Use mix of: uppercase, lowercase, numbers, symbols
 - Never store digitally
 - **NEVER use your password description as secret phrase**
+
+### Password Length Requirements
+- **Smart/Strong passwords**: 12-100 characters
+- **Auth codes**: 4-100 characters
 
 ### Strong Secret Examples
 ```
@@ -194,6 +216,7 @@ SmartPasswordGeneratorCsharpCli help
 
 ### Weak Secret Examples (avoid)
 ```
+❌ "short"                       — too short, rejected
 ❌ "password"                    — dictionary word, too short
 ❌ "1234567890"                  — only digits, too short
 ❌ "qwerty123"                   — keyboard pattern
@@ -271,6 +294,13 @@ dotnet publish -c Release -o ~/.publish-linux/SmartPasswordGeneratorCsharpCli/ -
 - **[Web Smart Password Manager](https://github.com/smartlegionlab/smart-password-manager-web)**
 - **[Android Smart Password Manager](https://github.com/smartlegionlab/smart-password-manager-android)**
 
+## Version History
+
+| Version          | smartpasslib-csharp | Status                   | Migration Required     |
+|------------------|---------------------|--------------------------|------------------------|
+| v1.0.3 and below | v1.x.x              | ❌ Deprecated/Unsupported | Must migrate to v4.x.x |
+| **v4.0.0+**      | **v4.0.0+**         | ✅ Current                | N/A                    |
+
 ## License
 
 **[BSD 3-Clause License](https://github.com/smartlegionlab/SmartPasswordGeneratorCsharpCli/blob/master/LICENSE)**
@@ -293,4 +323,6 @@ Copyright (©) 2026, [Alexander Suvorov](https://github.com/smartlegionlab)
 ### Main Interface
 
 ![Main Interface](https://github.com/smartlegionlab/SmartPasswordGeneratorCsharpCli/raw/master/data/images/logo.png)
+
+---
 

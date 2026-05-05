@@ -43,9 +43,9 @@ class Program
                     Console.WriteLine("ERROR: Invalid length");
                     return;
                 }
-                if (length < 12 || length > 1000)
+                if (length < 12 || length > 100)
                 {
-                    Console.WriteLine("ERROR: Length must be between 12 and 1000");
+                    Console.WriteLine("ERROR: Length must be between 12 and 100");
                     return;
                 }
                 try
@@ -69,9 +69,9 @@ class Program
                     Console.WriteLine("ERROR: Invalid length");
                     return;
                 }
-                if (strongLength < 12 || strongLength > 1000)
+                if (strongLength < 12 || strongLength > 100)
                 {
-                    Console.WriteLine("ERROR: Length must be between 12 and 1000");
+                    Console.WriteLine("ERROR: Length must be between 12 and 100");
                     return;
                 }
                 try
@@ -238,7 +238,7 @@ class Program
         int width = Console.WindowWidth;
         Console.WriteLine(new string('=', width));
         CenterText("SMART PASSWORD GENERATOR (C#) CLI");
-        CenterText("Version v1.0.3");
+        CenterText("Version v4.0.0");
         Console.WriteLine(new string('=', width));
         Console.WriteLine();
 
@@ -255,10 +255,10 @@ class Program
         Console.WriteLine();
 
         Console.WriteLine("HOW IT WORKS:");
-        Console.WriteLine("1. Smart password: deterministic from secret phrase (30 iterations SHA-256)");
+        Console.WriteLine("1. Smart password: deterministic from secret phrase (15-30 dynamic iterations SHA-256)");
         Console.WriteLine("2. Strong password: cryptographically secure random");
-        Console.WriteLine("3. Auth code: short random code for 2FA (4-20 chars)");
-        Console.WriteLine("4. Public key: derived from secret (60 iterations SHA-256)");
+        Console.WriteLine("3. Auth code: short random code for 2FA (4-100 chars)");
+        Console.WriteLine("4. Public key: derived from secret (45-60 dynamic iterations SHA-256)");
         Console.WriteLine("5. Verify: check if secret matches public key");
         Console.WriteLine();
 
@@ -288,8 +288,8 @@ class Program
 
         Console.WriteLine("REQUIREMENTS:");
         Console.WriteLine("- Secret phrase: minimum 12 characters");
-        Console.WriteLine("- Smart/Strong password length: 12-1000 characters");
-        Console.WriteLine("- Auth code length: 4-20 characters");
+        Console.WriteLine("- Smart/Strong password length: 12-100 characters");
+        Console.WriteLine("- Auth code length: 4-100 characters");
         Console.WriteLine();
 
         Console.WriteLine("EXAMPLES:");
@@ -316,7 +316,6 @@ class Program
         int width = Console.WindowWidth;
         Console.WriteLine(new string('=', width));
         CenterText("SMART PASSWORD GENERATOR (C#) CLI");
-        CenterText($"Version: v1.0.3");
         Console.WriteLine(new string('=', width));
         Console.WriteLine();
     }
@@ -339,7 +338,7 @@ class Program
         int width = Console.WindowWidth;
         Console.WriteLine(new string('=', width));
         CenterText("SMART PASSWORD GENERATOR (C#) CLI");
-        CenterText($"Version: v1.0.3");
+        CenterText($"Version: v4.0.0");
         Console.WriteLine(new string('=', width));
         Console.WriteLine();
         CenterText("https://github.com/smartlegionlab/SmartPasswordGeneratorCsharpCli");
@@ -367,7 +366,7 @@ class Program
             return;
         }
 
-        Console.Write(" Enter password length (12-1000): ");
+        Console.Write(" Enter password length (12-100): ");
         string? lengthInput = Console.ReadLine();
         if (string.IsNullOrWhiteSpace(lengthInput))
         {
@@ -383,9 +382,9 @@ class Program
             return;
         }
 
-        if (length < 12 || length > 1000)
+        if (length < 12 || length > 100)
         {
-            Console.WriteLine("\n ERROR: Length must be between 12 and 1000! Press any key...");
+            Console.WriteLine("\n ERROR: Length must be between 12 and 100! Press any key...");
             Console.ReadKey();
             return;
         }
@@ -410,7 +409,7 @@ class Program
         DrawHeader();
 
         Console.WriteLine(" GENERATE STRONG RANDOM PASSWORD");
-        Console.WriteLine(" (Password length must be between 12 and 1000)");
+        Console.WriteLine(" (Password length must be between 12 and 100)");
         Console.Write(" Enter password length: ");
         string? lengthInput = Console.ReadLine();
 
@@ -428,9 +427,9 @@ class Program
             return;
         }
 
-        if (length < 12 || length > 1000)
+        if (length < 12 || length > 100)
         {
-            Console.WriteLine("\n ERROR: Length must be between 12 and 1000! Press any key...");
+            Console.WriteLine("\n ERROR: Length must be between 12 and 100! Press any key...");
             Console.ReadKey();
             return;
         }
